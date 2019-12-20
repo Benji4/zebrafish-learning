@@ -1,0 +1,50 @@
+Loading input...
+Elapsed time: 3.147618293762207
+Building SVM input...
+Elapsed time: 19.1783664226532
+[('spon', 482), ('prey', 471)]
+Creating train-test-split...
+Tuning hyperparameters...
+# Tuning hyper-parameters for f1
+
+Best parameters set found on development set:
+
+{'C': 1, 'gamma': 0.001, 'kernel': 'rbf'}
+
+Grid scores on development set:
+
+0.000 (+/-0.000) for {'C': 0.01, 'gamma': 0.1, 'kernel': 'rbf'}
+0.000 (+/-0.000) for {'C': 0.01, 'gamma': 0.01, 'kernel': 'rbf'}
+0.886 (+/-0.035) for {'C': 0.01, 'gamma': 0.001, 'kernel': 'rbf'}
+0.454 (+/-0.150) for {'C': 0.01, 'gamma': 0.0001, 'kernel': 'rbf'}
+0.000 (+/-0.000) for {'C': 0.1, 'gamma': 0.1, 'kernel': 'rbf'}
+0.875 (+/-0.048) for {'C': 0.1, 'gamma': 0.01, 'kernel': 'rbf'}
+0.923 (+/-0.036) for {'C': 0.1, 'gamma': 0.001, 'kernel': 'rbf'}
+0.851 (+/-0.016) for {'C': 0.1, 'gamma': 0.0001, 'kernel': 'rbf'}
+0.807 (+/-0.036) for {'C': 1, 'gamma': 0.1, 'kernel': 'rbf'}
+0.922 (+/-0.033) for {'C': 1, 'gamma': 0.01, 'kernel': 'rbf'}
+0.946 (+/-0.038) for {'C': 1, 'gamma': 0.001, 'kernel': 'rbf'}
+0.910 (+/-0.043) for {'C': 1, 'gamma': 0.0001, 'kernel': 'rbf'}
+0.813 (+/-0.034) for {'C': 10, 'gamma': 0.1, 'kernel': 'rbf'}
+0.923 (+/-0.035) for {'C': 10, 'gamma': 0.01, 'kernel': 'rbf'}
+0.944 (+/-0.030) for {'C': 10, 'gamma': 0.001, 'kernel': 'rbf'}
+0.934 (+/-0.047) for {'C': 10, 'gamma': 0.0001, 'kernel': 'rbf'}
+0.863 (+/-0.061) for {'C': 0.01, 'kernel': 'linear'}
+0.858 (+/-0.061) for {'C': 0.1, 'kernel': 'linear'}
+0.861 (+/-0.062) for {'C': 1, 'kernel': 'linear'}
+0.857 (+/-0.065) for {'C': 10, 'kernel': 'linear'}
+
+Elapsed time: 35.97041893005371
+Training...
+Validation scores:
+Accuracy : 0.9457 (+/- 0.0391)
+F1 Score : 0.9465 (+/- 0.0378)
+Precision: 0.9223 (+/- 0.0580)
+Recall   : 0.9724 (+/- 0.0291)
+Elapsed time: 36.10632085800171
+
+Test scores:
+Accuracy : 0.9021 (+/- 0.0000)
+F1 Score :	 0.9054 (+/- 0.0000)
+Precision: 0.8816 (+/- 0.0000)
+Recall   : 0.9306 (+/- 0.0000)

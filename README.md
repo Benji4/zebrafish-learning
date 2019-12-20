@@ -1,7 +1,7 @@
 
 #   Analysis of Video Feature Learning in Two-Stream CNNs on the Example of Zebrafish Swim Bout Classification   
 
-This source code accompanies the paper ["Analysis of Video Feature Learning in Two-Stream CNNs on the Example of Zebrafish Swim Bout Classification" (Breier and Onken, 2020)](https://openreview.net/forum?id=rJgQkT4twH). The work demonstrates the utility of a recent AI explainability technique by visualizing the learned features of a CNN trained on binary classification of zebrafish movements.
+This source code accompanies the paper ["Analysis of Video Feature Learning in Two-Stream CNNs on the Example of Zebrafish Swim Bout Classification" (Breier and Onken, 2020)](https://openreview.net/forum?id=rJgQkT4twH). The work demonstrates the utility of a recent AI explainability technique by visualizing the learned features of a CNN trained on binary classification of zebrafish movements. Beside this readme, the Appendix of the paper gives important further explanations.
 
 The files in the folder "cnn" were used for training our CNNs:  
 * The main function for training is in file `main.py`.  
@@ -26,7 +26,7 @@ The folder "scripts" contains all other important python scripts, including anal
 * `cut_agarose.py` was used to remove experimental artifacts from the videos
 * `evaluate_probs.ipynb`, `get_temporal_stats.ipynb`, `get_training_curve.ipynb`, and `preprocess_get_figure.ipynb` are the jupyter notebook we used to create some of the figures of the relevance analysis and of preprocessing.
 
-The [best CNN weights we obtained can be found here](https://drive.google.com/open?id=1EdmGl5p7T9nhcH0IibpNvM6YMO5MHjIK)!~ (after removing artifacts in the data), so you could try running analyses without training the CNN again:
+The [best CNN weights we obtained can be found here](https://drive.google.com/open?id=1EdmGl5p7T9nhcH0IibpNvM6YMO5MHjIK) (after removing artifacts in the data), so you could try running analyses without training the CNN again:
 
 The scripts in this repository require the following modules with versions:
 NumPy 1.16.4, Matplotlib 3.1.1, h5py 2.9.0, tqdm 4.32.2, OpenCV 4.1.0.25, scikit-learn 0.21.2, PyTorch 1.1.0, TensorFlow 1.14.0, Keras 2.2.4, iNNvestigate 1.0.8

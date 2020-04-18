@@ -71,17 +71,6 @@ def find_frame_dimensions(frame):  # optimal dimensions depend on the position o
 
     # Gamma correction
     frame = np.array(np.clip(pow(frame / 255.0, gamma) * 255.0, 0, 255), dtype=np.uint8)
-    #     plt.hist(frame.flatten())
-    #     plt.show()
-
-    # Nice idea, but not what we want
-    #     plt.hist(frame.flatten())
-    #     plt.title("B")
-    #     plt.show()
-    #     frame = cv2.equalizeHist(frame)
-    #     plt.hist(frame.flatten())
-    #     plt.title("After histogram equalization")
-    #     plt.show()
 
     # contour_threshold can be the same value for all videos, but we have to standardize the videos first, i.e.
     # increase contrast (use gamma)
@@ -92,18 +81,10 @@ def find_frame_dimensions(frame):  # optimal dimensions depend on the position o
         print("Showing first frame of video after bladder detection")
         fig = plt.figure(figsize=(5, 5))
         plt.imshow(frame, cmap='gray')
-        #     plt.show()
-        #     fig = plt.figure(figsize=(4,4))
 
         plt.imshow(thresh_inv, 'Greys', interpolation='none', alpha=0.7)
         plt.show()
 
-    #     NICE IDEA BUT NOT WHAT WE WANT
-    #     C = 3
-    #     blockSize = 31
-    #     thresh = cv2.adaptiveThreshold(frame, 255, cv2.ADAPTIVE_THRESH_MEAN_C, cv2.THRESH_BINARY, blockSize, C)
-
-    #     edges = cv2.Canny(gray, 250, 100)
 
     contours, hierarchy = cv2.findContours(thresh, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
 
@@ -185,14 +166,12 @@ def get_video_starts(idxs_with_motion, thresh):
     for c in consec:
         if len(c) >= thresh and c[0] >= bound:
             # dismiss movements that happen within 150 frames or have less than a certain nmber of frames
-            #         print("c:",c)
             start = c[0] - start_buffer
             if start < 0:
                 start = 0
             video_starts.append(start)
             bound = start + vid_length  # videos may not overlap even if there are distinct movements involved (because if two videos overlap and these two videos are in training and test datasets respectively, then that's clearly cheating)
 
-    # print("consec movements:", consec)
     return video_starts
 
 
@@ -244,7 +223,6 @@ def extract_vids(file, zfile=None):
                 plt.imshow(norm_frame, cmap='gray')
                 plt.show()
 
-                #         print(norm_frame.shape)
             i += 1
 
     cap.release()
@@ -311,10 +289,10 @@ if __name__ == '__main__':
     vid_length = 150  # fixed target video length
     number_of_frames_for_motion_detection = 6  # consecutive frames
 
-    input_path_spon = "data/spon"  # label 0
-    input_path_prey = "data/prey"  # label 1
-    input_path_zip = "data/spontaneous_2.zip"
-    output_path = "data/npz-files/zebrafish_small_spon"
+    input_path_spon = "data/spon"  # label 0  # TODO path to file
+    input_path_prey = "data/prey"  # label 1  # TODO path to file
+    input_path_zip = "data/spontaneous_2.zip" # TODO path to file
+    output_path = "data/npz-files/zebrafish_small_spon" # TODO path to file
 
     seed = 462019
     np.random.seed(seed)
@@ -387,5 +365,3 @@ if __name__ == '__main__':
             print("No output path given, dataset was not saved.")
 
     print("Finished.")
-
-    # return [X_train, X_val, X_test, y_train, y_val, y_test]

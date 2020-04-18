@@ -47,7 +47,6 @@ class ExperimentBuilder(nn.Module):
         self.model = network_model
         self.model.reset_parameters()
 
-        # print("Model:", self.model)
         print("Num params:", self.get_num_parameters())
 
         if type(self.device) is list:
@@ -66,14 +65,13 @@ class ExperimentBuilder(nn.Module):
         if schedule:
             lr_lambda = lambda epoch: 1 if epoch<=0 else 1 / epoch ** 0.5
             optim.lr_scheduler.LambdaLR(self.optimizer, lr_lambda=lr_lambda, last_epoch=-1)
-            # TODO start scheduler from last epoch on resume
 
         # Generate the directory names
         self.experiment_folder = os.path.abspath(experiment_name)
         self.experiment_logs = os.path.abspath(os.path.join(self.experiment_folder, "result_outputs"))
         self.experiment_saved_models = os.path.abspath(os.path.join(self.experiment_folder, "saved_models"))
         self.weights_folder = os.path.abspath("init_model")
-        # print(self.experiment_folder, self.experiment_logs)
+
         # Set best models to be at 0 since we are just starting
         self.best_valid_model_idx = 0
         self.best_valid_model_acc = 0.
@@ -120,9 +118,6 @@ class ExperimentBuilder(nn.Module):
         else:
             self.state = dict()
 
-        # # focus training on conv layers
-        # self.state = dict()
-
 
     def get_num_parameters(self):
         total_num_params = 0
@@ -161,8 +156,7 @@ class ExperimentBuilder(nn.Module):
 
     def reverse_rescale(self, X, min, max):
         """ in-place for minimal RAM consumption """
-        # print(X.shape, min.shape, max.shape)
-        #     X = min + X * (max-min) / 255
+        ### Meaning: X = min + X * (max-min) / 255
         max -= min
         max /= 255
         X *= torch.unsqueeze(torch.unsqueeze(max, -1), -1)  # add two empty axes for broadcasting
@@ -174,17 +168,6 @@ class ExperimentBuilder(nn.Module):
             self.train()  # sets model to training mode (in case batch normalization or other methods have different procedures for training and evaluation)
         else:
             self.eval()  # sets the system to validation mode
-        # print("y: {}".format(y))
-        # if len(y.shape) > 1:
-        #     y = np.argmax(y, axis=1)  # convert one hot encoded labels to single integer labels
-        # print("y: {}".format(y))
-        # if type(x) is np.ndarray:
-        #     x, y = torch.Tensor(x).float().to(device=self.device), torch.Tensor(y).long().to(
-        #         device=self.device)  # send data to device as torch tensors
-        # if type(x_flow) is np.ndarray:
-        #     x_flow = torch.Tensor(x_flow).float().to(device=self.device)  # send data to device as torch tensors
-
-        # print(x.type(), x_flow.type())
 
         # Expecting a tensor in x, x_flow, and y
         # ss = time.time()
@@ -205,17 +188,10 @@ class ExperimentBuilder(nn.Module):
 
         # ss = time.time()
         self.reverse_rescale(x_flow, minmax[:, :, 0], minmax[:, :, 1])  # in-place
-        # done check if x_flow it fine after this - works fine
-        # np.save("x_flow.npy",x_flow[1,2])
         # print("Reverse rescale took {0:.2f} secs".format(time.time() - ss))
 
         del minmax
 
-        # x = x.byte().to(device=self.device)
-        # x_flow = x_flow.byte().to(device=self.device)
-        # y = y.byte().to(device=self.device)
-
-        # print(x.type(), x_flow.type())
         # ss = time.time()
         out_spatial, out_temporal = self.model.forward(x, x_flow)  # forward the data in the model
         # print("Forward pass took {0:.2f} secs".format(time.time() - ss))
@@ -223,16 +199,9 @@ class ExperimentBuilder(nn.Module):
 
         # ss = time.time()
 
-
-        # print("out_spatial: {}, loss_spatial: {}, out_temporal: {}, loss_temporal: {}".format(out_spatial, loss_spatial, out_temporal, loss_temporal))
         # Get overall loss:
-        # print("##############")
-        # print(out_spatial.shape)
-        # print(out_spatial)
         log_prob_spatial = F.log_softmax(out_spatial, dim=1)
         del out_spatial
-        # print(prob_spatial.shape)
-        # print(prob_spatial)
         log_prob_temporal = F.log_softmax(out_temporal, dim=1)
         del out_temporal
 
@@ -491,8 +460,7 @@ class ExperimentBuilder(nn.Module):
     # helper function
     def get_stats(self, y, predicted):
         accuracy = np.mean(list(predicted.eq(y.data).cpu()))  # compute accuracy
-        # print(y.data.cpu().numpy())
-        # print(predicted.cpu().numpy())
+
         # Might throw UndefinedMetricWarning if current batch contains only samples of one single class
         precision, recall, f1, _ = np.array(precision_recall_fscore_support(y.data.cpu().numpy(), predicted.cpu().numpy()))[:,-1]
         return accuracy, precision, recall, f1

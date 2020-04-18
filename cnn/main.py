@@ -8,7 +8,7 @@ from model_architectures import TwoStreamNetwork
 from torch.utils import data
 
 if __name__ == '__main__':
-    debug = False
+    debug = False # debugging flag
 
     args = get_args()  # get arguments from command line
 
@@ -21,6 +21,8 @@ if __name__ == '__main__':
     num_orig_samples = 1214
     segment_size = 32 # used by DataLoader for internally finding the right hdf5 file and idx to an ID
     num_workers_per_segment = 1
+
+    # The namings of datasets correspond to the namings in the script augment.py; it's just the names we used for our experiments.
 
     if debug:
         args.set = '9f'
@@ -38,7 +40,7 @@ if __name__ == '__main__':
 
     seed = 462019
     num_workers = 32 # for data loading from disk
-    all_file = 'batches_{}/all.hdf5'.format(args.set)
+    all_file = 'batches_{}/all.hdf5'.format(args.set) # TODO path to file
 
     if debug:
         num_orig_samples = 9
@@ -46,7 +48,7 @@ if __name__ == '__main__':
         num_workers_per_segment = 1
         num_masks_per_worker = 1
         num_workers = 1
-        all_file = '../batches_data_testing/all.hdf5'
+        all_file = '../batches_data_testing/all.hdf5' # TODO path to file, for debugging/testing
         batch_size = 3
         num_epochs = 1
         args.pretrained = False
@@ -119,8 +121,6 @@ if __name__ == '__main__':
     test_data = data.DataLoader(test_dataset, **params)
 
     num_output_classes = 2
-
-    # data_store = data_providers.DataStore()
 
     custom_net = TwoStreamNetwork(
         input_shape=(batch_size, num_flow_channels, image_height, image_width), dropout_rate=args.dropout_rate)

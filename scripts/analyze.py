@@ -16,8 +16,7 @@ np.random.seed(seed)
 
 def reverse_rescale(X, min, max):
     """ in-place for minimal RAM consumption """
-    # print(X.shape, min.shape, max.shape)
-    #     X = min + X * (max-min) / 255
+    ### Meaning:  X = min + X * (max-min) / 255
     max -= min
     max /= 255
     X *= max[...,np.newaxis,np.newaxis]  # add two empty axes for broadcasting
@@ -77,7 +76,7 @@ def cnn_m_2048(inits):
 if __name__ == '__main__':
     ss = time.time()
 
-    # Run multiple analyses with different techniques, weights, and datasets, specified here:
+    # Run multiple analyses with different techniques, weights, and datasets, specified here. Names correspond to the heatmaps to be obtained from iNNvestigate, corresponding weights obtained before from CNN training corresponding datasets:
     abbreviations = ['14f_gui', '12f_gui'] # ['14f_sens', '12f_sens', '14f_dec', '12f_dec']
     weights_abbreviations = ['14f','12f'] # ['14f','12f','14f','12f']
     datas = ['13f', '9f'] # ['13f', '9f', '13f', '9f']
@@ -87,9 +86,9 @@ if __name__ == '__main__':
         weights_abbr = weights_abbreviations[run]
         data = datas[run]
 
-        pth_path = 'data/z_{}.pth'.format(weights_abbr) # weights to be analyzed
-        input_file = '/disk/scratch/{}/all.hdf5'.format(data) # data to be analyzed
-        outfile = '/disk/scratch/analysis_{}/analysis.hdf5'.format(abbr)
+        pth_path = 'data/z_{}.pth'.format(weights_abbr) # weights to be analyzed  # TODO path to file
+        input_file = '/disk/scratch/{}/all.hdf5'.format(data) # data to be analyzed  # TODO path to file
+        outfile = '/disk/scratch/analysis_{}/analysis.hdf5'.format(abbr) # TODO path to output file
 
         worker_ids = [32, 33, 34, 35, 36, 37] # test set
 
@@ -174,12 +173,7 @@ if __name__ == '__main__':
                 print('wrong abbreviation')
                 exit(1)
             analysis_s = analyzer.analyze(x)
-
-            # print("analysis_s {}".format(analysis_s))
             analysis_s = np.squeeze(analysis_s)
-
-
-            # print("###########################  {}  ###########################".format(np.sum(np.abs(analysis_s))))
 
 
             ################# TEMPORAL ####################
@@ -211,10 +205,6 @@ if __name__ == '__main__':
             # print("analysis_t {}".format(analysis_t))
             analysis_t = analysis_t.reshape(len(analysis_t), 85, 2, 224, 224)
             analysis_t = np.mean(analysis_t, axis=2) # mean of relevance over x and y components
-
-
-            # print("###########################  {}  ###########################".format(np.sum(np.abs(analysis_t))))
-
 
             ################# OUTPUT #################
 

@@ -13,7 +13,7 @@ if __name__ == '__main__':
     aug_mult_factor_per_worker = num_masks_per_worker * flipping_factor * cropping_factor # masking, flipping, cropping
     num_samples_per_worker = segment_size * aug_mult_factor_per_worker # used to find the right file in Dataset-class
 
-    all_file = '/disk/scratch/12f/all.hdf5'
+    all_file = '/disk/scratch/12f/all.hdf5' # TODO path to file
 
     problem_ids = []
 

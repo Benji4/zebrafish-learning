@@ -34,7 +34,7 @@ class CNNM2048(nn.Module):
 
     def forward(self, x):
         """
-        Forward propages the network given an input batch
+        Forward propagates the network given an input batch
         :param x: Inputs x (b, c, h, w)
         :return: preds (b, num_classes)
         """

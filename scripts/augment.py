@@ -116,8 +116,6 @@ def compress_batch(batch): # batch of optical flow
 def run_worker(worker_id, X_segment, y_segment):
     np.random.seed(462019 + worker_id) # set unique seed for each worker process to use unique set of masks with each worker
 
-    # print("X_segment.shape", X_segment.shape)
-
     worker_segment = X_segment.shape[0] # worker_segment == segment_size, except for the final batch
 
     total = num_masks_per_worker * worker_segment  # number of resulting masks 47 masks * 100 samples
@@ -165,10 +163,6 @@ def run_worker(worker_id, X_segment, y_segment):
             np.random.shuffle(aug[:, ll])  # in-place
 
         max_number = worker_segment  # just for debugging
-
-        # print("Worker {0:2} elapsed time: {1:.2f} secs".format(worker_id, time.time() - start))
-
-        # print("Worker {0:2} saving 18 batches to hdf5 file {1} ...".format(worker_id, hdf5_file))
 
         # go through all combinations of flipping and cropping
         for k in range(18):
@@ -220,10 +214,9 @@ def run_worker(worker_id, X_segment, y_segment):
 
 start = time.time()
 
-# data_folder = '/afs/inf.ed.ac.uk/group/project/s1832591/final'
-data_folder = '/disk/scratch/14f'
-filepath = '{}/zebrafish_all_cut_agarose_85.npz'.format(data_folder) # all the original data, i.e. events and targets (segment should have 100 original samples)
-final_output = '{}/all.hdf5'.format(data_folder)
+data_folder = '/disk/scratch/14f' # TODO path to file
+filepath = '{}/zebrafish_all_cut_agarose_85.npz'.format(data_folder)  # TODO path to file # all the original data, i.e. events and targets (segment should have 100 original samples)
+final_output = '{}/all.hdf5'.format(data_folder) # TODO path to file
 num_workers = 38
 num_masks_per_worker = 8
 segment_size = 32

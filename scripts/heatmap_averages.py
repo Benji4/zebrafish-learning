@@ -4,9 +4,9 @@ import os
 
 if __name__ == '__main__':
 
-    analysis_file = '/disk/scratch/analysis/analysis.hdf5'
-    orig_file = '/disk/scratch/9f/all.hdf5'
-    out_dir = 'Downloads'
+    analysis_file = '/disk/scratch/analysis/analysis.hdf5' # TODO path to file
+    orig_file = '/disk/scratch/9f/all.hdf5' # TODO path to file
+    out_dir = 'Downloads' # TODO path to file
     worker_ids = [32, 33, 34, 35, 36, 37]
     n = 1842
 

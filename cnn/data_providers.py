@@ -24,8 +24,6 @@ class Dataset(data.Dataset):
         # Select sample
         ID = self.list_IDs[index]
 
-        # print(ID)
-
         # Get the worker_id to find the right file, and the index within the worker file:
         worker_id = ID // self.num_samples_per_worker
         idx = ID % self.num_samples_per_worker
@@ -45,15 +43,6 @@ class Dataset(data.Dataset):
             # load labels:
             y = np.uint8(f['worker-{}-targets'.format(worker_id)][idx])
 
-            # print(X.shape)
-            # y = torch.from_numpy(np.array(int(f['worker-{}-targets'.format(worker_id)][idx])))
-            # print(y)
 
-
-        # X = torch.from_numpy(np.load('data/' + ID + '.npy'))
-        # y = self.labels["id-"+str(ID)]
-
-        # print("Process",os.getpid(), "loading item.")
-        # time.sleep(2)
 
         return X, X_flow, y, minmax

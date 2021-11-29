@@ -3,7 +3,7 @@
 
 
 
-This source code accompanies the paper ["Analysis of Video Feature Learning in Two-Stream CNNs on the Example of Zebrafish Swim Bout Classification" (Breier and Onken, 2020)](https://openreview.net/forum?id=rJgQkT4twH). The work demonstrates the utility of a recent AI explainability technique by visualizing the learned features of a CNN trained on binary classification of zebrafish movements. Beside this readme, the Appendix of the paper gives important further explanations.
+This source code accompanies the paper ["Analysis of Video Feature Learning in Two-Stream CNNs on the Example of Zebrafish Swim Bout Classification" (Breier and Onken, 2020)](https://openreview.net/pdf?id=rJgQkT4twH). The work demonstrates the utility of a recent AI explainability technique by visualizing the learned features of a CNN trained on binary classification of zebrafish movements. Beside this readme, the Appendix of the paper gives important further explanations.
 
 The files in the folder "cnn" were used for training our CNNs:  
 * The main function for training is in file `main.py`.  
